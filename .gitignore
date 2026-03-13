@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# dbt artifacts
+logs/
+target/
+dbt_packages/
+stackexchange_dwh/logs/
+stackexchange_dwh/target/
+stackexchange_dwh/dbt_packages/

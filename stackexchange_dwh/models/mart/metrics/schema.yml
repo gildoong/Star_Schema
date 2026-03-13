@@ -1,0 +1,168 @@
+version: 2
+
+models:
+
+  - name: mart_answer_view_ratio
+    description: "질문 게시글의 조회수 대비 답변 비율을 계산한 Mart 모델. 질문의 참여도를 분석하기 위한 지표."
+
+    columns:
+
+      - name: post_id
+        description: "질문 게시글 ID"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fact_posts')
+                field: post_id
+
+      - name: view_count
+        description: "게시글 조회수"
+        tests:
+          - not_null
+
+      - name: answer_count
+        description: "게시글 답변 수"
+        tests:
+          - not_null
+
+      - name: answer_view_ratio
+        description: "조회수 대비 답변 비율"
+        tests:
+          - not_null
+
+
+  - name: mart_daily_questions
+    description: "일별 질문 생성 수를 집계한 Mart 모델. 커뮤니티 활동 추세 분석."
+
+    columns:
+
+      - name: date
+        description: "질문 생성 날짜"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_day
+
+      - name: question_count
+        description: "해당 날짜의 질문 수"
+        tests:
+          - not_null
+
+
+  - name: mart_expert_answer_score
+    description: "고평판 사용자 답변 점수 평균을 분석하는 Mart 모델."
+
+    columns:
+
+      - name: avg_answer_score
+        description: "고평판 사용자 답변 평균 점수"
+        tests:
+          - not_null
+
+
+  - name: mart_fastest_answer_tag
+    description: "태그별 평균 답변 속도를 계산하는 Mart 모델."
+
+    columns:
+
+      - name: tag_name
+        description: "기술 태그 이름"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_tags')
+                field: tag_name
+
+      - name: avg_response_time
+        description: "질문 이후 첫 답변까지 평균 시간"
+        tests:
+          - not_null
+
+
+  - name: mart_question_hour_pattern
+    description: "시간대별 질문 생성 패턴 분석."
+
+    columns:
+
+      - name: hour
+        description: "질문 생성 시간대"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0,1,2,3,4,5,6,7,8,9,10,11,
+                         12,13,14,15,16,17,18,19,20,21,22,23]
+
+      - name: question_count
+        description: "해당 시간대 질문 수"
+        tests:
+          - not_null
+
+
+  - name: mart_tag_answer_time
+    description: "태그별 평균 답변 시간을 계산하는 Mart 모델."
+
+    columns:
+
+      - name: tag_name
+        description: "기술 태그 이름"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_tags')
+                field: tag_name
+
+      - name: avg_answer_time
+        description: "평균 답변 시간"
+        tests:
+          - not_null
+
+
+  - name: mart_top_tags
+    description: "질문 수 기준 가장 인기 있는 태그 분석."
+
+    columns:
+
+      - name: tag_name
+        description: "기술 태그 이름"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_tags')
+                field: tag_name
+
+      - name: question_count
+        description: "태그별 질문 수"
+        tests:
+          - not_null
+
+
+  - name: mart_user_activity
+    description: "사용자 활동 수준 분석."
+
+    columns:
+
+      - name: user_id
+        description: "사용자 ID"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_user')
+                field: user_id
+
+      - name: post_count
+        description: "사용자가 작성한 게시글 수"
+        tests:
+          - not_null
+
+      - name: total_score
+        description: "사용자가 받은 총 게시글 점수"
+        tests:
+          - not_null

@@ -1,0 +1,84 @@
+version: 2
+
+models:
+
+  - name: dim_user
+    description: "StackExchange 사용자 차원 테이블"
+
+    columns:
+
+      - name: user_id
+        description: "사용자 고유 ID"
+        tests:
+          - unique
+          - not_null
+
+      - name: reputation
+        description: "사용자 평판 점수"
+
+  - name: dim_tags
+    description: "StackExchange 태그 차원 테이블"
+
+    columns:
+
+      - name: tag_name
+        description: "태그 이름"
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_posts
+    description: "게시글 활동 fact 테이블"
+
+    columns:
+
+      - name: post_id
+        description: "게시글 고유 ID"
+        tests:
+          - unique
+          - not_null
+
+      - name: user_id
+        description: "게시글 작성자"
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_user')
+                field: user_id
+
+  - name: fact_votes
+    description: "게시글 투표 이벤트 fact 테이블"
+
+    columns:
+      - name: vote_id
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_comments
+    description: "게시글 댓글 이벤트 fact 테이블"
+
+    columns:
+      - name: comment_id
+        tests:
+          - unique
+          - not_null
+
+  - name: bridge_post_tags
+    description: "게시글과 태그 간 N:M 관계 bridge 테이블"
+
+    columns:
+
+      - name: post_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('fact_posts')
+                field: post_id
+
+      - name: tag_name
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_tags')
+                field: tag_name

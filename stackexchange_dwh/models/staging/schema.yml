@@ -1,0 +1,90 @@
+version: 2
+
+models:
+
+  - name: stg_posts
+    description: "StackExchange 게시글 데이터 staging 모델. Silver 레이어의 posts 테이블을 dbt 모델링에 맞게 정리한 데이터."
+    columns:
+
+      - name: post_id
+        description: "게시글 고유 ID"
+        tests:
+          - not_null
+          - unique
+
+      - name: user_id
+        description: "게시글 작성자 ID"
+
+      - name: parent_post_id
+        description: "답변일 경우 원본 질문의 ID"
+
+      - name: accepted_answer_id
+        description: "질문에 채택된 답변 ID"
+
+      - name: creation_date
+        description: "게시글 생성 시각"
+        tests:
+          - not_null
+
+      - name: post_type
+        description: "게시글 유형 (question / answer)"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['question','answer']
+
+  - name: stg_users
+    description: "사용자 데이터 staging 모델"
+    columns:
+
+      - name: user_id
+        description: "사용자 고유 ID"
+        tests:
+          - not_null
+          - unique
+
+      - name: display_name
+        description: "사용자 이름"
+
+      - name: reputation
+        description: "StackExchange 사용자 평판 점수"
+
+  - name: stg_comments
+    description: "게시글 댓글 이벤트 staging 테이블"
+
+    columns:
+      - name: comment_id
+        tests:
+          - unique
+          - not_null
+
+      - name: post_id
+        description: "댓글이 달린 게시글 ID"
+
+  - name: stg_votes
+    description: "게시글 투표 이벤트 staging 테이블"
+
+    columns:
+      - name: vote_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_tags
+    description: "StackExchange 태그 메타데이터"
+
+    columns:
+      - name: tag_name
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_post_tags
+    description: "게시글과 태그 관계 staging 모델"
+
+    columns:
+      - name: post_id
+        description: "게시글 ID"
+
+      - name: tag_name
+        description: "태그 이름"

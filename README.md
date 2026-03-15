@@ -4,6 +4,8 @@ StackExchange 데이터를 Databricks와 dbt로 모델링하고, 스타 스키�
 
 `Bronze`와 `Silver` 레이어의 적재 및 정제는 Databricks 환경에서 수행했고, 이 저장소에는 주로 `Gold` 레이어의 dbt 모델링과 분석 SQL을 정리했습니다.
 
+<img width="4128" height="992" alt="image" src="https://github.com/user-attachments/assets/303aae34-30b8-4767-9a6b-aef863b14581" />
+
 ## Overview
 
 - Raw StackExchange 데이터를 Databricks에서 수집 및 정제
@@ -193,15 +195,6 @@ uv run dbt docs serve
 - `feature/sql-analysis`
   - 분석 SQL 브랜치
 
-## Screenshots
-
-아래 영역에 Databricks 테이블 목록, dbt docs 화면, 쿼리 실행 결과 등을 추가하면 됩니다.
-
-```text
-[ Databricks Screenshot Placeholder ]
-[ dbt Docs Screenshot Placeholder ]
-[ Query Result Screenshot Placeholder ]
-```
 
 ## Notes
 

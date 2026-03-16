@@ -6,6 +6,10 @@ StackExchange 데이터를 Databricks와 dbt로 모델링하고, 스타 스키�
 
 <img width="4128" height="992" alt="image" src="https://github.com/user-attachments/assets/303aae34-30b8-4767-9a6b-aef863b14581" />
 
+
+<img width="2162" height="974" alt="image" src="https://github.com/user-attachments/assets/ab3b896e-705a-47f4-b043-03fe651a5c1b" />
+
+
 ## Overview
 
 - Raw StackExchange 데이터를 Databricks에서 수집 및 정제

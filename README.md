@@ -128,6 +128,9 @@ dbt mart와는 별도로, 탐색적 분석 및 리포트 작성용 SQL을 `stack
 - `accepted_answer_tag.sql`
 - `answer_time.sql`
 - `many_question_user.sql`
+- `question_engagement_ratio.sql`
+- `question_quality_participation.sql`
+- `tag_popularity_analysis.sql`
 - `top_answer_tag.sql`
 - `top_comment_question.sql`
 - `top_view_question.sql`
